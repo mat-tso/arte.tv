@@ -12,12 +12,17 @@ document.getElementById("urlInput").onchange = function(e) {
     alert("Malformed URL");
     return
   }
-  // https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/
   const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
   const xobj = new XMLHttpRequest();
   xobj.responseType = 'json';
   xobj.open('GET', apiUrl);
   xobj.onload = function() {
+    const videoJsonPlayer = xobj.response.videoJsonPlayer
+    const VSR = xobj.response.videoJsonPlayer.VSR
+    if (VSR === undefined) {
+      alert("API querry failed")
+      return
+    }
     function compare(array) {
       for (let i in array) {
         if (array[i] != 0) {
@@ -26,7 +31,7 @@ document.getElementById("urlInput").onchange = function(e) {
       }
       return 0;
     }
-    const data = Object.values(xobj.response.videoJsonPlayer.VSR).sort(function(l, r) {
+    const data = Object.values(VSR).sort(function(l, r) {
       return compare([r.bitrate - l.bitrate,
         r.mimeType.localeCompare(l.mimeType),
         r.versionShortLibelle.localeCompare(l.versionShortLibelle)
@@ -77,9 +82,11 @@ document.getElementById("urlInput").onchange = function(e) {
       })
     }))
     const result = document.getElementById("result")
-    result.prepend(createLink(apiUrl, "Source"))
-    result.prepend(table)
-    result.prepend(createLink(url, url))
+    
+    result.appendChild(document.createTextNode("Videos for id: "))
+    result.appendChild(createLink(videoJsonPlayer.VTR, id))
+    result.appendChild(table)
+    result.appendChild(createLink(apiUrl, "Source"))
   };
   xobj.send(null)
 }
