@@ -115,7 +115,8 @@ Nothing is sent to the server and you can read the source code of this page on [
     const url = e.target.value;
     const id = url.split("/")[5];
     if (id === undefined) {
-      alert("Malformed URL, expected format: \n" + e.target.placeholder);
+      alert("Malformed URL, expected format: \n" +
+            "https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/");
       return
     }
     location.hash = id;
