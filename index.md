@@ -96,7 +96,10 @@ Nothing is sent to the server and you can read the source code of this page on [
       const table = createNode("table", genRows(data))
 
       const result = createNode("div", [
-        "Videos for id: ", createLink(videoJsonPlayer.VTR, id),
+        createNode("h3", [videoJsonPlayer.VTI]),
+        createNode("h4", [videoJsonPlayer.subtitle]),
+        createNode("p", ["Duration: ", Math.round(videoJsonPlayer.videoDurationSeconds / 60)," minutes"]),
+        "Page: ", createLink(videoJsonPlayer.VTR, id),
         table,
         "Data fetched from ", createLink(apiUrl, "Arte's open API"),
       ])
