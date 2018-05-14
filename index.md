@@ -1,10 +1,9 @@
 Enter an url like https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/ and press enter.
 
-{::nomarkdown}
+<input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
+<div id="result" />
 
-    <input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
-    <div id="result" />
-    <script>
+<script>
       document.getElementById("urlInput").onchange = function(e) {
 
         const url = e.target.value;
@@ -72,5 +71,4 @@ Enter an url like https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esc
         };
         xobj.send(null)
       }
-    </script>
-{:/nomarkdown}
+</script>
