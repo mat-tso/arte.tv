@@ -119,8 +119,8 @@ Nothing is sent to the server and you can read the source code of this page on [
       return
     }
     location.hash = id;
+    e.target.placeholder = e.target.value
     e.target.value = ""
   }
-
 })()
 </script>
