@@ -3,6 +3,9 @@ Enter an url like https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esc
 <input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
 <div id="result"></div>
 
+This website uses [arte.tv](https://www.arte.tv/)'s open API to retreive the video stream URLs.
+
+Nothing is sent to the server and you can read the source code of this page on [github](https://raw.githubusercontent.com/mat-tso/arte.tv/master/index.md).
 <script>
 document.getElementById("urlInput").onchange = function(e) {
 
@@ -86,7 +89,7 @@ document.getElementById("urlInput").onchange = function(e) {
     result.appendChild(document.createTextNode("Videos for id: "))
     result.appendChild(createLink(videoJsonPlayer.VTR, id))
     result.appendChild(table)
-    result.appendChild(createLink(apiUrl, "Source"))
+    result.appendChild(createLink(apiUrl, "ARTE JSON API URL"))
   };
   xobj.send(null)
 }
