@@ -1,4 +1,4 @@
-Enter an url like https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/ and press enter.
+Enter an url like [https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/](#068406-004-A) and press enter.
 
 <input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
 <div id="results"></div>
@@ -77,23 +77,23 @@ Nothing is sent to the server and you can read the source code of this page on [
         return n
       }
 
-      function tableLines(data) {
+      function genRows(data) {
         if (!data[0]) {
           alert("No video found");
           return []
         }
 
-        const lines = data.map(function(v) {
+        const rows = data.map(function(v) {
           return create("tr", v, function(k, v) {
             return createNode("td", [k === "URL" ? createLink(v, "link") : v])
           })
         })
-        lines.unshift(create("tr", data[0], function(k, _) {
+        rows.unshift(create("tr", data[0], function(k, _) {
           return createNode("th", [k])
         }))
-        return lines
+        return rows
       }
-      const table = createNode("table", tableLines(data))
+      const table = createNode("table", genRows(data))
 
       const result = createNode("div", [
         "Videos for id: ", createLink(videoJsonPlayer.VTR, id),
