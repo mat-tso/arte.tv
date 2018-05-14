@@ -6,6 +6,7 @@ Enter an url like https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esc
 This website uses [arte.tv](https://www.arte.tv/)'s open API to retreive the video stream URLs.
 
 Nothing is sent to the server and you can read the source code of this page on [github](https://raw.githubusercontent.com/mat-tso/arte.tv/master/index.md).
+
 <script>
 document.getElementById("urlInput").onchange = function(e) {
 
