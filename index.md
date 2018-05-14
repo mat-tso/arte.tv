@@ -11,9 +11,13 @@ Nothing is sent to the server and you can read the source code of this page on [
 
 <script>
 (function() {
+  "use strict"
 
-  window.onhashchange = function() {
+  function fetchData() {
     const id = location.hash.substr(1)
+    if (!id) {
+      return
+    }
     const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
     const xobj = new XMLHttpRequest();
     xobj.responseType = 'json';
@@ -26,30 +30,25 @@ Nothing is sent to the server and you can read the source code of this page on [
         return
       }
 
-      function compare(array) {
-        for (let i in array) {
-          if (array[i] != 0) {
-            return array[i];
-          }
-        }
-        return 0;
-      }
-      const data = Object.values(VSR).sort(function(l, r) {
-        return compare([r.bitrate - l.bitrate,
+      const dataRaw = Object.values(VSR).sort(function(l, r) {
+        return [
+          r.bitrate - l.bitrate,
           r.mimeType.localeCompare(l.mimeType),
           r.versionShortLibelle.localeCompare(l.versionShortLibelle)
-        ])
+        ].find(function(x) {
+          return x != 0
+        }) || 0
       })
 
-      for (let i in data) {
-        const r = data[i]
-        data[i] = {
+      const data = dataRaw.map(function(r) {
+        return {
           'URL': r.url,
           'Format': r.mediaType,
           'Version': r.versionLibelle,
           'Bitrate': r.bitrate,
         }
-      }
+      })
+
 
       function create(t, a, f) {
         const n = document.createElement(t);
@@ -60,37 +59,47 @@ Nothing is sent to the server and you can read the source code of this page on [
       }
 
       function createLink(href, text) {
-        a = document.createElement("a")
+        const a = document.createElement("a")
         a.href = href
         a.text = text
         return a
       }
-      if (!data[0]) {
-        alert("empty data");
-        return
+
+      function createNode(tag, children) {
+        const n = document.createElement(tag);
+        for (let i in children) {
+          let child = children[i]
+          if (["string", "number", "boolean"].includes(typeof(child))) {
+            child = document.createTextNode(child)
+          }
+          n.appendChild(child)
+        }
+        return n
       }
-      const table = create("table", data, function(_, v) {
-        return create("tr", v, function(k, v) {
-          return create("th", [null], function(_, _) {
-            if (k === "URL") {
-              return createLink(v, "link")
-            }
-            return document.createTextNode(v)
+
+      function tableLines(data) {
+        if (!data[0]) {
+          alert("No video found");
+          return []
+        }
+
+        const lines = data.map(function(v) {
+          return create("tr", v, function(k, v) {
+            return createNode("td", [k === "URL" ? createLink(v, "link") : v])
           })
         })
-      })
-      table.prepend(create("tr", data[0], function(k, _) {
-        return create("th", [null], function(_, _) {
-          return document.createTextNode(k)
-        })
-      }))
+        lines.unshift(create("tr", data[0], function(k, _) {
+          return createNode("th", [k])
+        }))
+        return lines
+      }
+      const table = createNode("table", tableLines(data))
 
-      const result = document.createElement("div")
-      result.appendChild(document.createTextNode("Videos for id: "))
-      result.appendChild(createLink(videoJsonPlayer.VTR, id))
-      result.appendChild(table)
-      result.appendChild(document.createTextNode("Data fetched from "))
-      result.appendChild(createLink(apiUrl, "Arte's open API"))
+      const result = createNode("div", [
+        "Videos for id: ", createLink(videoJsonPlayer.VTR, id),
+        table,
+        "Data fetched from ", createLink(apiUrl, "Arte's open API"),
+      ])
 
       const results = document.getElementById("results")
       results.insertBefore(result, results.firstChild)
@@ -98,6 +107,9 @@ Nothing is sent to the server and you can read the source code of this page on [
     };
     xobj.send(null)
   }
+
+  fetchData() // If loading page with hash
+  window.onhashchange = fetchData
 
   document.getElementById("urlInput").onchange = function(e) {
     const url = e.target.value;
