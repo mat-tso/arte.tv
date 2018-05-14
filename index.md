@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>arte.tv</title>
-  </head>
-  <body>
-    Enter an url like <a href="https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/">https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/</a> and press enter.
-    <input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
-    <div id="result" />
-    <script>
+Enter an url like https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-esclavage-4-4/ and press enter.
+
+<input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
+<div id="result" />
+
+<script>
       document.getElementById("urlInput").onchange = function(e) {
+
         const url = e.target.value;
         const id = url.split("/")[5];
         if (id === undefined) {
@@ -35,6 +31,7 @@
               r.versionShortLibelle.localeCompare(l.versionShortLibelle)
             ])
           })
+
           function create(t, a, f) {
             const n = document.createElement(t);
             for (let k in a) {
@@ -42,6 +39,7 @@
             }
             return n
           }
+
           function createLink(href, text) {
             a = document.createElement("a")
             a.href = href
@@ -73,6 +71,4 @@
         };
         xobj.send(null)
       }
-    </script>
-  </body>
-</html>
+</script>
