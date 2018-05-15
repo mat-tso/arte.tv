@@ -1,8 +1,8 @@
 (function() {
   "use strict"
 
-  function fetchData() {
-    const id = location.hash.substr(1)
+  function fetchData(id) {
+    console.log(id)
     if (!id) {
       return
     }
@@ -86,7 +86,7 @@
         createNode("hr", []),
         createNode("h4", [videoJsonPlayer.VTI || "[No title]"]),
         videoJsonPlayer.subtitle ? createNode("h5", [videoJsonPlayer.subtitle]) : "",
-        createNode("p", [videoJsonPlayer.V7T || videoJsonPlayer.VDE || "[No description]" ]),
+        createNode("p", [videoJsonPlayer.V7T || videoJsonPlayer.VDE || "[No description]"]),
         createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]", " minutes"]),
         "More info on the ", createLink(videoJsonPlayer.VTR || videoJsonPlayer.VUP || "#", "original page"), ".",
         table,
@@ -99,15 +99,19 @@
     xobj.send(null)
   }
 
-  fetchData() // If loading page with hash
-  window.onhashchange = fetchData
+  function fetchFromHash() {
+    location.hash.substr(1).split(",").map(fetchData)
+  }
+
+  fetchFromHash() // If loading page with hash
+  window.onhashchange = fetchFromHash
 
   document.getElementById("urlInput").onchange = function(e) {
     const url = e.target.value;
     const id = url.split("/")[5];
     if (id === undefined) {
       alert("Malformed URL, expected format: \n" +
-            "https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/");
+        "https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/");
       return
     }
     location.hash = id;
