@@ -93,23 +93,25 @@
         "Data fetched from ", createLink(apiUrl, "Arte's open API"), createNode("hr", []),
 
       ])
-      result.id = id
       output.appendChild(result)
     };
     xobj.send(null)
   }
 
   function fetchFromHash() {
-    const ids = location.hash.substr(1).split(",")
-      .filter(function(e) {
-        return e
-      })
     const results = document.getElementById("results")
-    for (let i in ids) {
-      const result = document.createElement("div")
-      results.appendChild(result)
-      fetchData(ids[i], result)
-    }
+    location.hash.substr(1).split(",")
+      .filter(function(id) {
+        return id
+      }).forEach(function(id) {
+        if (document.getElementById(id)) {
+          return
+        }
+        const result = document.createElement("div")
+        result.id = id
+        results.appendChild(result)
+        fetchData(id, result)
+      })
   }
 
   fetchFromHash() // If loading page with hash
