@@ -84,14 +84,14 @@
       }
 
       const result = createNode("div", [
-        createNode("hr", []),
         createNode("h4", [videoJsonPlayer.VTI || "[No title]"]),
         videoJsonPlayer.subtitle ? createNode("h5", [videoJsonPlayer.subtitle]) : "",
         createNode("p", [videoJsonPlayer.V7T || videoJsonPlayer.VDE || "[No description]"]),
         createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]", " minutes"]),
         "More info on the ", createLink(videoJsonPlayer.VTR || videoJsonPlayer.VUP || "#", "original page"), ".",
         createNode("table", genRows(data)),
-        "Data fetched from ", createLink(apiUrl, "Arte's open API"),
+        "Data fetched from ", createLink(apiUrl, "Arte's open API"), createNode("hr", []),
+
       ])
       result.id = id
       output.appendChild(result)
@@ -104,11 +104,10 @@
       .filter(function(e) {
         return e
       })
-      .reverse()
     const results = document.getElementById("results")
     for (let i in ids) {
       const result = document.createElement("div")
-      results.insertBefore(result, results.firstChild)
+      results.appendChild(result)
       fetchData(ids[i], result)
     }
   }
