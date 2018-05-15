@@ -64,7 +64,7 @@
         const n = document.createElement(tag)
         for (let i in children) {
           let child = children[i]
-          if (["string", "number", "boolean"].includes(typeof(child))) {
+          if (["string", "number", "boolean"].indexOf(typeof(child)) != -1) {
             child = document.createTextNode(child)
           }
           n.appendChild(child)
