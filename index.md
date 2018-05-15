@@ -1,4 +1,4 @@
-Enter an url like [https://www.arte.tv/fr/videos/068406-001-A/les-routes-de-l-esclavage-1-4/](#068406-004-A) and press enter.
+Enter an url like [https://www.arte.tv/fr/videos/068406-001-A/les-routes-de-l-esclavage-1-4/](#068406-001-A) and press enter.
 
 <input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
 <div id="results"></div>
