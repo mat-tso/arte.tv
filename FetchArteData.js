@@ -1,17 +1,49 @@
 (function() {
   "use strict"
 
+  function createMap(t, a, f) {
+    const n = document.createElement(t);
+    for (let k in a) {
+      n.appendChild(f(k, a[k]))
+    }
+    return n
+  }
+
+  function createLink(href, text) {
+    const a = document.createElement("a")
+    a.href = href
+    a.text = text
+    return a
+  }
+
+  function createNode(tag, children) {
+    const n = document.createElement(tag)
+    for (let i in children) {
+      let child = children[i]
+      if (["string", "number", "boolean"].indexOf(typeof(child)) != -1) {
+        child = document.createTextNode(child)
+      }
+      n.appendChild(child)
+    }
+    return n
+  }
+
   function fetchData(id, output) {
     const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
     const xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json"); // no .responseType = "json" in IE
     xobj.open('GET', apiUrl, true);
     xobj.onload = function() {
+      function error(msg, cName) {
+        const errorNode = createNode("p", [msg])
+        errorNode.className = cName || ""
+        return errorNode
+      }
       const jsonResponse = JSON.parse(xobj.responseText);
       const videoJsonPlayer = jsonResponse.videoJsonPlayer
       const VSR = videoJsonPlayer.VSR
       if (VSR === undefined) {
-        alert("API querry failed to " + apiUrl)
+        output.appendChild(error("Error: API querry failed to " + apiUrl, "err"))
         return
       }
 
@@ -45,37 +77,9 @@
         }
       })
 
-      function createMap(t, a, f) {
-        const n = document.createElement(t);
-        for (let k in a) {
-          n.appendChild(f(k, a[k]))
-        }
-        return n
-      }
-
-      function createLink(href, text) {
-        const a = document.createElement("a")
-        a.href = href
-        a.text = text
-        return a
-      }
-
-      function createNode(tag, children) {
-        const n = document.createElement(tag)
-        for (let i in children) {
-          let child = children[i]
-          if (["string", "number", "boolean"].indexOf(typeof(child)) != -1) {
-            child = document.createTextNode(child)
-          }
-          n.appendChild(child)
-        }
-        return n
-      }
-
       function genRows(data) {
         if (!data[0]) {
-          alert("No video found");
-          return []
+          return [error("[No videos]")];
         }
 
         const rows = data.map(function(v) {
