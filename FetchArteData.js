@@ -87,8 +87,8 @@
         createNode("hr", []),
         createNode("h4", [videoJsonPlayer.VTI || "[No title]"]),
         videoJsonPlayer.subtitle ? createNode("h5", [videoJsonPlayer.subtitle]) : "",
-        createNode("p", [videoJsonPlayer.VDE || "[No description]" ])
-        createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]")," minutes"]),
+        createNode("p", [videoJsonPlayer.VDE || "[No description]" ]),
+        createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]"," minutes"]),
         "Page: ", createLink(videoJsonPlayer.VTR || videoJsonPlayer.VUP || "#", id),
         table,
         "Data fetched from ", createLink(apiUrl, "Arte's open API"),
