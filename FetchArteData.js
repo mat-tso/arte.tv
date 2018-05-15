@@ -4,11 +4,12 @@
   function fetchData(id, output) {
     const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
     const xobj = new XMLHttpRequest();
-    xobj.responseType = 'json';
-    xobj.open('GET', apiUrl);
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', apiUrl, true);
     xobj.onload = function() {
-      const videoJsonPlayer = xobj.response.videoJsonPlayer
-      const VSR = xobj.response.videoJsonPlayer.VSR
+      const jsonResponse = JSON.parse(xobj.responseText);
+      const videoJsonPlayer = jsonResponse.videoJsonPlayer
+      const VSR = videoJsonPlayer.VSR
       if (VSR === undefined) {
         alert("API querry failed to " + apiUrl)
         return
