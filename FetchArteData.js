@@ -4,7 +4,7 @@
   function fetchData(id, output) {
     const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
     const xobj = new XMLHttpRequest();
-    xobj.overrideMimeType("application/json");
+    xobj.overrideMimeType("application/json"); // no .responseType = "json" in IE
     xobj.open('GET', apiUrl, true);
     xobj.onload = function() {
       const jsonResponse = JSON.parse(xobj.responseText);
@@ -18,13 +18,17 @@
       const dataRaw = Object.keys(VSR).map(function(k) {
         return VSR[k]
       }).sort(function(l, r) {
-        return [
+        const priority = [
           r.bitrate - l.bitrate,
           r.mimeType.localeCompare(l.mimeType),
           r.versionShortLibelle.localeCompare(l.versionShortLibelle)
-        ].find(function(x) {
-          return x != 0
-        }) || 0
+        ]
+        for (let i in priority) { // no Array.find in IE
+          if (priority[i] != 0) {
+            return priority[i];
+          }
+        }
+        return 0
       })
 
       const maxBitrate = Math.max.apply(null, dataRaw.map(function(e) {
