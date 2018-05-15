@@ -4,7 +4,9 @@ Enter an url like [https://www.arte.tv/fr/videos/068406-001-A/les-routes-de-l-es
 
 <input type="text" name="url" id="urlInput" style="width: 100%;" placeholder="https://www.arte.tv/XX/videos/123456-123-A/XXXXXXXXXXXXXX/">
 
-[Reset the page](.)
+<form action=".">
+    <input type="submit" value="Reset the page" />
+</form>
 
 ---
 
