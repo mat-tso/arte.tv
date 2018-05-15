@@ -2,7 +2,6 @@
   "use strict"
 
   function fetchData(id) {
-    console.log(id)
     if (!id) {
       return
     }
@@ -28,14 +27,20 @@
         }) || 0
       })
 
-      const data = dataRaw.map(function(r) {
-        return {
-          'URL': r.url,
-          'Format': r.mediaType,
-          'Version': r.versionLibelle,
-          'Bitrate': r.bitrate,
-        }
-      })
+      const maxBitrate = Math.max.apply(null, dataRaw.map(function(e) {
+        return e.bitrate
+      }))
+      const data = dataRaw
+        .filter(function(r) {
+          return r.bitrate == maxBitrate
+        }).map(function(r) {
+          return {
+            'URL': r.url,
+            'Format': r.mediaType,
+            'Version': r.versionLibelle,
+            'Bitrate': r.bitrate,
+          }
+        })
 
       function create(t, a, f) {
         const n = document.createElement(t);
