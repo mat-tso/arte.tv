@@ -15,7 +15,9 @@
         return
       }
 
-      const dataRaw = Object.values(VSR).sort(function(l, r) {
+      const dataRaw = Object.keys(VSR).map(function(k) {
+        return VSR[k]
+      }).sort(function(l, r) {
         return [
           r.bitrate - l.bitrate,
           r.mimeType.localeCompare(l.mimeType),
@@ -28,17 +30,16 @@
       const maxBitrate = Math.max.apply(null, dataRaw.map(function(e) {
         return e.bitrate
       }))
-      const data = dataRaw
-        .filter(function(r) {
-          return r.bitrate == maxBitrate
-        }).map(function(r) {
-          return {
-            'URL': r.url,
-            'Format': r.mediaType,
-            'Version': r.versionLibelle,
-            'Bitrate': r.bitrate,
-          }
-        })
+      const data = dataRaw.filter(function(r) {
+        return r.bitrate === maxBitrate
+      }).map(function(r) {
+        return {
+          'URL': r.url,
+          'Format': r.mediaType,
+          'Version': r.versionLibelle,
+          'Bitrate': r.bitrate,
+        }
+      })
 
       function createMap(t, a, f) {
         const n = document.createElement(t);
