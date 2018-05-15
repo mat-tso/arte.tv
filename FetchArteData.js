@@ -1,10 +1,7 @@
 (function() {
   "use strict"
 
-  function fetchData(id) {
-    if (!id) {
-      return
-    }
+  function fetchData(id, result) {
     const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
     const xobj = new XMLHttpRequest();
     xobj.responseType = 'json';
@@ -57,8 +54,7 @@
         return a
       }
 
-      function createNode(tag, children) {
-        const n = document.createElement(tag);
+      function appendNode(n, children) {
         for (let i in children) {
           let child = children[i]
           if (["string", "number", "boolean"].includes(typeof(child))) {
@@ -67,6 +63,10 @@
           n.appendChild(child)
         }
         return n
+      }
+
+      function createNode(tag, children) {
+        return appendNode(document.createElement(tag), children)
       }
 
       function genRows(data) {
@@ -87,7 +87,7 @@
       }
       const table = createNode("table", genRows(data))
 
-      const result = createNode("div", [
+      appendNode(result, [
         createNode("hr", []),
         createNode("h4", [videoJsonPlayer.VTI || "[No title]"]),
         videoJsonPlayer.subtitle ? createNode("h5", [videoJsonPlayer.subtitle]) : "",
@@ -97,15 +97,23 @@
         table,
         "Data fetched from ", createLink(apiUrl, "Arte's open API"),
       ])
-
-      const results = document.getElementById("results")
-      results.insertBefore(result, results.firstChild)
+      result.id = id
     };
     xobj.send(null)
   }
 
   function fetchFromHash() {
-    location.hash.substr(1).split(",").reverse().map(fetchData)
+    const ids = location.hash.substr(1).split(",")
+      .filter(function(e) {
+        return e
+      })
+      .reverse()
+    const results = document.getElementById("results")
+    for (let i in ids) {
+      const result = document.createElement("div")
+      results.insertBefore(result, results.firstChild)
+      fetchData(ids[i], result)
+    }
   }
 
   fetchFromHash() // If loading page with hash
