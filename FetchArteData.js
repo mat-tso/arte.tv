@@ -84,8 +84,9 @@
       const table = createNode("table", genRows(data))
 
       const result = createNode("div", [
-        createNode("h3", [videoJsonPlayer.VTI]),
-        createNode("h4", [videoJsonPlayer.subtitle]),
+        createNode("hr", []),
+        createNode("h4", [videoJsonPlayer.VTI]),
+        createNode("h5", [videoJsonPlayer.subtitle]),
         createNode("p", ["Duration: ", Math.round(videoJsonPlayer.videoDurationSeconds / 60)," minutes"]),
         "Page: ", createLink(videoJsonPlayer.VTR, id),
         table,
