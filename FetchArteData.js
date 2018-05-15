@@ -37,7 +37,6 @@
         }
       })
 
-
       function create(t, a, f) {
         const n = document.createElement(t);
         for (let k in a) {
@@ -87,16 +86,15 @@
         createNode("hr", []),
         createNode("h4", [videoJsonPlayer.VTI || "[No title]"]),
         videoJsonPlayer.subtitle ? createNode("h5", [videoJsonPlayer.subtitle]) : "",
-        createNode("p", [videoJsonPlayer.VDE || "[No description]" ]),
-        createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]"," minutes"]),
-        "Page: ", createLink(videoJsonPlayer.VTR || videoJsonPlayer.VUP || "#", id),
+        createNode("p", [videoJsonPlayer.V7T || videoJsonPlayer.VDE || "[No description]" ]),
+        createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]", " minutes"]),
+        "More info on the ", createLink(videoJsonPlayer.VTR || videoJsonPlayer.VUP || "#", "original page"), ".",
         table,
         "Data fetched from ", createLink(apiUrl, "Arte's open API"),
       ])
 
       const results = document.getElementById("results")
       results.insertBefore(result, results.firstChild)
-
     };
     xobj.send(null)
   }
