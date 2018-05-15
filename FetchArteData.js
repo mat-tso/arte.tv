@@ -1,7 +1,7 @@
 (function() {
   "use strict"
 
-  function fetchData(id, result) {
+  function fetchData(id, output) {
     const apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id
     const xobj = new XMLHttpRequest();
     xobj.responseType = 'json';
@@ -54,7 +54,8 @@
         return a
       }
 
-      function appendNode(n, children) {
+      function createNode(tag, children) {
+        const n = document.createElement(tag)
         for (let i in children) {
           let child = children[i]
           if (["string", "number", "boolean"].includes(typeof(child))) {
@@ -63,10 +64,6 @@
           n.appendChild(child)
         }
         return n
-      }
-
-      function createNode(tag, children) {
-        return appendNode(document.createElement(tag), children)
       }
 
       function genRows(data) {
@@ -85,19 +82,19 @@
         }))
         return rows
       }
-      const table = createNode("table", genRows(data))
 
-      appendNode(result, [
+      const result = createNode("div", [
         createNode("hr", []),
         createNode("h4", [videoJsonPlayer.VTI || "[No title]"]),
         videoJsonPlayer.subtitle ? createNode("h5", [videoJsonPlayer.subtitle]) : "",
         createNode("p", [videoJsonPlayer.V7T || videoJsonPlayer.VDE || "[No description]"]),
         createNode("p", ["Duration: ", videoJsonPlayer.VDU || "[No duration]", " minutes"]),
         "More info on the ", createLink(videoJsonPlayer.VTR || videoJsonPlayer.VUP || "#", "original page"), ".",
-        table,
+        createNode("table", genRows(data)),
         "Data fetched from ", createLink(apiUrl, "Arte's open API"),
       ])
       result.id = id
+      output.appendChild(result)
     };
     xobj.send(null)
   }
