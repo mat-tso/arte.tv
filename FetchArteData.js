@@ -100,7 +100,7 @@
   }
 
   function fetchFromHash() {
-    location.hash.substr(1).split(",").map(fetchData)
+    location.hash.substr(1).split(",").reverse().map(fetchData)
   }
 
   fetchFromHash() // If loading page with hash
