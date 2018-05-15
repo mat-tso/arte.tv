@@ -14,7 +14,7 @@ This website uses [arte.tv](https://www.arte.tv/)'s open API to retreive the vid
 
 Nothing is sent to the server and you can peek at the magic on [github](https://github.com/mat-tso/arte.tv/blob/master/FetchArteData.js).
 
-Pro tip: you can have multiple ids in the URL hash separated by a comma as such [this](#068406-001,068406-002,068406-003,068406-004).
+Pro tip: you can query multiple videos by separating them with `,` in the [URL hash](#068406-001,068406-002,068406-003,068406-004).
 
 All modern browser are supported as well as Internet Explorer 11.
 
