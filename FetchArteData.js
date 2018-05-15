@@ -42,7 +42,7 @@
           }
         })
 
-      function create(t, a, f) {
+      function createMap(t, a, f) {
         const n = document.createElement(t);
         for (let k in a) {
           n.appendChild(f(k, a[k]))
@@ -76,11 +76,11 @@
         }
 
         const rows = data.map(function(v) {
-          return create("tr", v, function(k, v) {
+          return createMap("tr", v, function(k, v) {
             return createNode("td", [k === "URL" ? createLink(v, "link") : v])
           })
         })
-        rows.unshift(create("tr", data[0], function(k, _) {
+        rows.unshift(createMap("tr", data[0], function(k, _) {
           return createNode("th", [k])
         }))
         return rows
