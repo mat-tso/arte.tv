@@ -7,6 +7,6 @@ Enter an url like [https://www.arte.tv/fr/videos/068406-004-A/les-routes-de-l-es
 
 This website uses [arte.tv](https://www.arte.tv/)'s open API to retreive the video stream URLs.
 
-Nothing is sent to the server and you can peek in the magic on [github](https://github.com/mat-tso/arte.tv/blob/master/FetchArteData.js).
+Nothing is sent to the server and you can peek at the magic on [github](https://github.com/mat-tso/arte.tv/blob/master/FetchArteData.js).
 
 <script src="FetchArteData.js"></script>
