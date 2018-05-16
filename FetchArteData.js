@@ -1,5 +1,6 @@
 (function () {
   "use strict";
+  // NOTE: all `var` should be `const`, but can not for old browser compatibilty
 
   function createMap(t, a, f) {
     var n = document.createElement(t);
