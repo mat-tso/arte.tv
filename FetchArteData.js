@@ -108,11 +108,9 @@
   }
 
   function fetchFromHash() {
-    var hash = location.hash.substr(1);
     var results = document.getElementById("results");
-    results.id = hash;
     results.scrollIntoView();
-    hash.split(",").filter(function (id) {
+    location.hash.substr(1).split(",").filter(function (id) {
       return id;
     }).forEach(function (id) {
       if (document.getElementById(id)) {
