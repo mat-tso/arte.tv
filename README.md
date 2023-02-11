@@ -1,6 +1,6 @@
 # Arte API visualiseur
 
-* The visualizer is currently broken due to Arte [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy.*
+**The visualizer is currently broken due to Arte's [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) policy.**
 
 Try it now: https://mat-tso.github.io/arte.tv/
 
