@@ -13,7 +13,7 @@
   function createLink(href, text) {
     var a = document.createElement("a");
     a.href = href;
-    a.text = text;
+    a.text = text || href;
     return a;
   }
 
@@ -40,7 +40,7 @@
     xobj.overrideMimeType("application/json"); // no .responseType = "json" in IE
     xobj.open('GET', apiUrl, true);
     xobj.onerror = function () {
-      output.appendChild(error("Error: API querry failed for " + apiUrl, "err"))
+      output.appendChild(error("Error: API querry failed for " + createLink(apiUrl), "err"))
     };
     xobj.onload = function () {
       var jsonResponse = JSON.parse(xobj.responseText);

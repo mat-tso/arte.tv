@@ -1,4 +1,4 @@
-<div id="results"></div>
+<div id="results" class="highlight"></div>
 
 Enter an url like [https://www.arte.tv/fr/videos/068406-001-A/les-routes-de-l-esclavage-1-4/](#068406-001-A) and press enter.
 
