@@ -30,21 +30,24 @@
   }
 
   function fetchData(id, output) {
+    function error(msg, cName) {
+      var errorNode = createNode("p", [msg]);
+      errorNode.className = cName || "";
+      return errorNode;
+    }
     var apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id;
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json"); // no .responseType = "json" in IE
     xobj.open('GET', apiUrl, true);
+    xobj.onerror = function () {
+      output.appendChild(error("Error: API querry failed for " + apiUrl, "err"))
+    };
     xobj.onload = function () {
-      function error(msg, cName) {
-        var errorNode = createNode("p", [msg]);
-        errorNode.className = cName || "";
-        return errorNode;
-      }
       var jsonResponse = JSON.parse(xobj.responseText);
       var videoJsonPlayer = jsonResponse.videoJsonPlayer;
       var VSR = videoJsonPlayer.VSR;
       if (VSR === undefined) {
-        output.appendChild(error("Error: API querry failed to " + apiUrl, "err"));
+        output.appendChild(error("Error: API response invalid from " + apiUrl, "err"));
         return;
       }
 

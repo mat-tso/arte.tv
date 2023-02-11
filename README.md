@@ -10,4 +10,5 @@ All modern browser are supported as well as Internet Explorer 11.
 
 ## TODO
 - [ ] Update to ARTE API V2
-- [ ] Handle errors from `XMLHTTPRequest` & link to the raw JSON on failure.
+- [x] Handle errors from `XMLHTTPRequest`
+- [ ] Link to the raw JSON on failure.
