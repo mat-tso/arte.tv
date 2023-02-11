@@ -19,9 +19,7 @@
 
   function createNode(tag, children, cName) {
     var n = document.createElement(tag);
-    if (cName != undefined) {
-      errorNode.className = cName;
-    }
+    n.className = cName;  
     for (var i in children) {
       var child = children[i];
       if (["string", "number", "boolean"].indexOf(typeof(child)) != -1) {
