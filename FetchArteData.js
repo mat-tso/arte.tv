@@ -17,8 +17,11 @@
     return a;
   }
 
-  function createNode(tag, children) {
+  function createNode(tag, children, cName) {
     var n = document.createElement(tag);
+    if (cName != undefined) {
+      errorNode.className = cName;
+    }
     for (var i in children) {
       var child = children[i];
       if (["string", "number", "boolean"].indexOf(typeof(child)) != -1) {
@@ -28,26 +31,27 @@
     }
     return n;
   }
+  function createP(msg, cName) {
+    return createNode("p", msg, cName)
+  }
+  function error(msg) {
+    return createP(msg, "err")
+  }
 
   function fetchData(id, output) {
-    function error(msg, cName) {
-      var errorNode = createNode("p", [msg]);
-      errorNode.className = cName || "";
-      return errorNode;
-    }
     var apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id;
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json"); // no .responseType = "json" in IE
     xobj.open('GET', apiUrl, true);
     xobj.onerror = function () {
-      output.appendChild(error("Error: API querry failed for " + createLink(apiUrl), "err"))
+      output.appendChild(error(["Error: API querry failed for ", createLink(apiUrl)]))
     };
     xobj.onload = function () {
       var jsonResponse = JSON.parse(xobj.responseText);
       var videoJsonPlayer = jsonResponse.videoJsonPlayer;
       var VSR = videoJsonPlayer.VSR;
       if (VSR === undefined) {
-        output.appendChild(error("Error: API response invalid from " + apiUrl, "err"));
+        output.appendChild(error(["Error: API response invalid from ", apiUrl]));
         return;
       }
 
@@ -82,7 +86,7 @@
 
       function genRows(data) {
         if (!data[0]) {
-          return [error("[No videos]")];
+          return [createP("[No videos]")];
         }
 
         var rows = data.map(function (v) {
