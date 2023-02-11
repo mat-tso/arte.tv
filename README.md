@@ -1,10 +1,10 @@
-# Arte API visualiseur 
+# Arte API visualiseur
 
-This website uses [arte.tv's](https://www.arte.tv/) open API to retreive the video metadatas.
+Try it now: https://mat-tso.github.io/arte.tv/
 
-Nothing is sent to the server and you can peek at the magic on github.
+This tool uses [arte.tv's](https://www.arte.tv/) open API to retreive the video metadatas.
 
-Pro tip: you can query multiple videos by separating them with , in the URL hash.
+Nothing is sent to any server, everything is local.
 
 All modern browser are supported as well as Internet Explorer 11.
 
