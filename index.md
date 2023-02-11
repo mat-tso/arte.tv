@@ -9,6 +9,8 @@ Enter an url like [https://www.arte.tv/fr/videos/068406-001-A/les-routes-de-l-es
 </form>
 
 ---
+**ARTE no longer allows to access its API from external sites
+[CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)).**
 
 This website uses [arte.tv](https://www.arte.tv/)'s open API to retreive the video metadatas.
 

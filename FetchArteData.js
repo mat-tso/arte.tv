@@ -39,7 +39,7 @@
   }
 
   function fetchData(id, output) {
-    var apiUrl = "https://api.arte.tv/api/player/v1/config/fr/" + id;
+    var apiUrl = "https://api.arte.tv/api/player/v2/config/fr/" + id;
     var xobj = new XMLHttpRequest();
     xobj.overrideMimeType("application/json"); // no .responseType = "json" in IE
     xobj.open('GET', apiUrl, true);
